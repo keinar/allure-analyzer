@@ -6,4 +6,4 @@ allure_results_directory: './allure-results'
 output_report_file: 'failure_analysis_report.html'
 
 # The number of top failure groups to include in the final report.
-top_n_groups_to_report: 20
+top_n_groups_to_report: -1  # -1 means all groups

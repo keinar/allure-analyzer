@@ -10,7 +10,9 @@ from analyzer import collect_failures_from_allure, Fingerprinter, generate_repor
 
 PORT = 8000
 
+
 def _load_config(base_dir: str) -> Dict:
+    """Load YAML config from the project root."""
     cfg_path = os.path.join(base_dir, 'config.yaml')
     print(f"Loading config from {cfg_path} ...")
     try:
@@ -20,25 +22,27 @@ def _load_config(base_dir: str) -> Dict:
         print("❌ ERROR: config.yaml not found.")
         sys.exit(1)
 
-def serve_report(html_file_name: str):
-    """Starts a local web server and opens the report in a browser."""
+
+def serve_report(html_file_name: str) -> None:
+    """Start a local web server and open the report in a browser."""
     Handler = http.server.SimpleHTTPRequestHandler
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
         url = f"http://localhost:{PORT}/{html_file_name}"
-        print("\n" + "="*50)
+        print("\n" + "=" * 50)
         print(f"✅ Starting server at: {url}")
         print("   The report is opening in your default web browser.")
         print("   Press Ctrl+C in this terminal to stop the server.")
-        print("="*50 + "\n")
-        
+        print("=" * 50 + "\n")
+
         webbrowser.open_new_tab(url)
-        
+
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
             print("\n🛑 Server stopped by user.")
         finally:
             httpd.shutdown()
+
 
 def main() -> None:
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -55,6 +59,8 @@ def main() -> None:
         return
 
     print("Fingerprinting and grouping failures ...")
+    # If your Fingerprinter supports project_root_package, pass it here:
+    # fp = Fingerprinter(project_root_package=config.get('project_root_package', ''))
     fp = Fingerprinter()
 
     groups: Dict[str, List[Dict]] = {}
@@ -62,27 +68,33 @@ def main() -> None:
         key = fp.create_fingerprint(failure)
         groups.setdefault(key, []).append(failure)
 
+    # Sort groups by size (descending)
     sorted_groups: List[Tuple[str, List[Dict]]] = sorted(
         groups.items(), key=lambda kv: len(kv[1]), reverse=True
     )
-    
-    # --- THIS IS THE UPDATED LOGIC ---
-    top_n_str = str(config.get('top_n_groups_to_report', 20))
-    top_n = int(top_n_str) if top_n_str.isdigit() and int(top_n_str) > 0 else 0
 
-    groups_to_report = sorted_groups
-    if top_n > 0:
+    # --- Robust TOP-N parsing: negative or zero => show ALL groups ---
+    raw_top_n = config.get('top_n_groups_to_report', 20)
+    try:
+        top_n = int(raw_top_n)
+    except Exception:
+        top_n = 20  # safe fallback
+
+    if top_n <= 0:
+        print("Generating report for ALL failure groups...")
+        groups_to_report = sorted_groups
+    else:
         print(f"Generating report for the top {top_n} failure groups...")
         groups_to_report = sorted_groups[:top_n]
-    else:
-        print("Generating report for ALL failure groups...")
-    
+
+    # Generate JSON consumed by report.html (and any other artifacts the reporter writes)
     generate_report_json(groups_to_report, config)
 
+    # Optionally open the static HTML dashboard
     html_file = "report.html"
     if os.path.exists(html_file):
-        answer = input(f"\n❔ Do you want to open the report '{html_file}' now? (y/n): ").lower()
-        if answer in ['y', 'yes']:
+        answer = input(f"\n❔ Do you want to open the report '{html_file}' now? (y/n): ").strip().lower()
+        if answer in ('y', 'yes'):
             serve_report(html_file)
         else:
             print("OK. You can open the 'report.html' file manually later.")

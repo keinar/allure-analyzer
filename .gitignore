@@ -181,3 +181,4 @@ cython_debug/
 .cursorindexingignore
 allure-results/
 .DS_Store
+failure_analysis_report.json
