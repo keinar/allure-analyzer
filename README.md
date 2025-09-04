@@ -11,9 +11,9 @@ This README reflects **your current repo setup**:
 - `config.yaml` currently defines `allure_results_directory`, `output_report_file`, and `top_n_groups_to_report`.
 - `report.html` loads **`failure_analysis_report.json`** via `fetch(...)` (so the JSON file name/path must match).
 - `requirements.txt` contains only `PyYAML`.
-- A sample `failure_analysis_report.json` is present and shows the final JSON structure (`metadata`, array of `groups`, etc.).
+- The generated JSON file (`failure_analysis_report.json`) includes a `metadata` block and an array of `groups`.
 
-> If you later add further config keys (e.g., `project_root_package`), you can paste them under **Configuration** below. The tool will still work even if that key is omitted (it falls back to step names/labels when no code location is found).
+> If you later add further config keys (e.g., `project_root_package`), paste them under **Configuration**. The tool still works if that key is omitted; in TS/JS projects the analyzer falls back to step names/labels when no code location is found.
 
 ---
 
@@ -24,6 +24,7 @@ This README reflects **your current repo setup**:
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Outputs](#outputs)
+- [Behavior nuances & defaults](#behavior-nuances--defaults)
 - [How It Works](#how-it-works)
 - [Tips](#tips)
 - [Troubleshooting](#troubleshooting)
@@ -88,7 +89,7 @@ top_n_groups_to_report: 20
 
 **IMPORTANT (about the HTML & JSON pairing):**
 - The dashboard HTML file is `report.html` (static). It **expects** to load `failure_analysis_report.json` from the same directory.
-- If you choose to rename/move the JSON file, you must also update the `fetch('failure_analysis_report.json')` call in `report.html` accordingly.
+- If you rename/move the JSON file, you must also update the `fetch('failure_analysis_report.json')` call in `report.html` accordingly.
 - Keep `report.html` and the generated `failure_analysis_report.json` together when publishing/serving the report.
 
 > (Optional, recommended) You can add this key for better stack-location grouping in non-Java projects (TS/JS):
@@ -115,20 +116,43 @@ What happens:
    - `failure_analysis_report.md` (Markdown summary; if enabled by your current code)
    - `report.html` (static UI, which loads the JSON at runtime)
 
-> To open the dashboard locally:
-> ```bash
-> python -m http.server
-> # Open http://localhost:8000/report.html
-> ```
+Open the dashboard locally:
+```bash
+# option A: with the built-in prompt in main.py (y/n)
+python main.py
+
+# option B: simple local server
+python -m http.server
+# then open http://localhost:8000/report.html
+```
 
 ---
 
 ## Outputs
-- **JSON** — `failure_analysis_report.json` with a `metadata` block and an array of `groups` (each has id, title, counts, fingerprint, labels, example with message/trace).
+- **JSON** — `failure_analysis_report.json` with a `metadata` block and an array of `groups` (each has id, title, counts, fingerprint, labels, and an example with message/trace).
 - **HTML** — `report.html`, the interactive dashboard that reads the JSON via `fetch(...)`.
 - **Markdown** — `failure_analysis_report.md`, a human‑readable summary (if enabled by your current code).
 
-> Keep the HTML and JSON files together when uploading/downloading artifacts from CI systems so the viewer can load data.
+> Keep the HTML and JSON files together when uploading/downloading artifacts so the viewer can load data.
+
+---
+
+## Behavior nuances & defaults
+- **Counting model**: totals in the dashboard reflect **failure steps** (including nested steps), **not test count**. Allure’s native summary counts tests. This is by design.
+- **Top‑N**: header totals reflect only the **shown groups** (after Top‑N slicing). Set `top_n_groups_to_report: 0` or any negative value to include **all** groups.
+- **Titles & messages**:
+  - Messages that start with `Custom message:` are **flattened** (newlines collapsed) so titles are informative (e.g., `Custom message: Expected ...`).
+  - Very long messages (e.g., CSP violations) are **shortened** with dedicated rules to keep titles clean.
+  - Titles are trimmed to **160 characters** by default (`MAX_TITLE_LEN` in `analyzer/fingerprinter.py`).
+
+**JSON contract used by the dashboard**
+- `metadata`: `generation_date`, `total_failures`, `unique_groups`
+- `groups[]`:
+  - `id`, `title`, `count`, `percentage`
+  - `status_counts.{failed, broken}`
+  - `fingerprint_what`, `fingerprint_where`
+  - `epics`, `features`
+  - `example.{test_name, message, trace}`
 
 ---
 
@@ -138,9 +162,9 @@ What happens:
 - Extracts robust **message** and **trace**, plus labels (epic/feature/etc.) and failing step.
 
 **Fingerprinting (`analyzer/fingerprinter.py`)**
-- Normalizes dynamic tokens (UUIDs, numbers, IPs, URLs, file paths, timestamps).
-- Prefers **failing step name** or **message** as the “what”, and a relevant **code location** as the “where”.
-- If no stack trace line matches your code, falls back to labels (package/class/method/suite).
+- Normalizes dynamic tokens (UUIDs, long numbers, IDs).
+- Prefers **failing step name/message** as the “what”, and a relevant **code location** as the “where” (fallbacks exist for TS/JS traces).
+- Dedicated rules keep titles short for certain patterns (e.g., CSP), while `Custom message:` is flattened for readability.
 
 **Reporting (`analyzer/reporting.py`)**
 - Groups failures by fingerprint and sorts by frequency.
@@ -150,16 +174,16 @@ What happens:
 ---
 
 ## Tips
-- Put `allure_results_directory` on a fast disk (SSD) for large runs.
+- Place `allure_results_directory` on a fast disk (SSD) for large runs.
 - For TypeScript/Playwright projects, set `project_root_package: 'src/'` (or similar) to improve “where” accuracy.
 - If you store stacks inside custom JSON/text attachments, extend extraction rules in `ingestion.py`.
 
 ---
 
 ## Troubleshooting
-- **HTML shows “Failed to load report data”** — Serve via a local web server (e.g., `python -m http.server`) so `fetch(...)` can load the JSON.
-- **Too many unique groups** — Consider adding `project_root_package` and/or refining normalization.
-- **No files found** — Ensure the path in `allure_results_directory` is correct and contains `*-result.json` files.
+- **“Failed to load report data” in the browser** — Serve via a local web server (e.g., `python -m http.server`) so `fetch(...)` can load the JSON.
+- **Too many unique groups** — Add `project_root_package` and/or refine normalization rules in `fingerprinter.py`.
+- **No files found** — Ensure the `allure_results_directory` path is correct and contains `*-result.json` files.
 
 ---
 
@@ -177,3 +201,4 @@ Yes. Edit `analyzer/fingerprinter.py` to add/adjust normalization patterns and s
 
 ## License
 [MIT](https://github.com/keinar/AI-Bug-Reporter/blob/main/LICENSE)
+
