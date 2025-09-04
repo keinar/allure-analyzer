@@ -1,0 +1,9 @@
+# Main configuration for the Allure RCA Tool
+
+allure_results_directory: './allure-results'
+
+# Update the output filename to .html
+output_report_file: 'failure_analysis_report.html'
+
+# The number of top failure groups to include in the final report.
+top_n_groups_to_report: 20

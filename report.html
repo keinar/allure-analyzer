@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allure Failure Analysis Report</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa; --card-bg: #ffffff; --text-color: #212529;
+            --border-color: #dee2e6; --shadow-color: rgba(0, 0, 0, 0.05);
+            --primary-color: #007bff; --primary-light: #e6f2ff; --secondary-color: #6c757d;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --status-failed-bg: #dc3545; /* Red */
+            --status-broken-bg: #ffc107; /* Yellow */
+        }
+        body.dark-mode {
+            --bg-color: #121212; --card-bg: #1e1e1e; --text-color: #e0e0e0;
+            --border-color: #333; --shadow-color: rgba(0, 0, 0, 0.2); --primary-light: #2a3a5e;
+            --status-failed-bg: #a12832;
+            --status-broken-bg: #b98c00;
+        }
+        body { font-family: var(--font-family); background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; transition: background-color 0.2s, color 0.2s; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+        h1 { margin: 0; font-size: 24px; }
+        .header-meta { font-size: 14px; color: var(--secondary-color); }
+        .controls { display: flex; gap: 10px; align-items: center; }
+        #search-box { padding: 8px; border-radius: 5px; border: 1px solid var(--border-color); background-color: var(--card-bg); color: var(--text-color); width: 250px; }
+        #dark-mode-toggle { cursor: pointer; border: none; background: none; font-size: 24px; padding: 5px; }
+        .group-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 6px var(--shadow-color); transition: box-shadow 0.2s; overflow: hidden; }
+        .card-header { padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background-color: rgba(0,0,0,0.02); }
+        body.dark-mode .card-header { background-color: rgba(255,255,255,0.05); }
+        .card-title { font-weight: bold; font-size: 18px; }
+        .card-title .arrow { display: inline-block; transition: transform 0.2s; }
+        .card-title .arrow.expanded { transform: rotate(90deg); }
+        .card-summary { color: var(--secondary-color); font-size: 14px; display: flex; align-items: center; gap: 15px;}
+        .card-content { display: none; padding: 20px; border-top: 1px solid var(--border-color); }
+        h4 { margin-top: 0; margin-bottom: 8px; font-size: 14px; color: var(--secondary-color); text-transform: uppercase; }
+        code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; background-color: var(--primary-light); border-radius: 4px; padding: 2px 5px; font-size: 14px; }
+        pre { padding: 15px; white-space: pre-wrap; word-wrap: break-word; max-height: 400px; overflow-y: auto; border: 1px solid var(--border-color); }
+        .label-tag { display: inline-block; background-color: var(--primary-light); color: var(--primary-color); padding: 3px 8px; border-radius: 12px; font-size: 12px; margin-right: 5px; margin-bottom: 5px; }
+        /* --- UPDATED STYLES for progress bar & status tags --- */
+        .progress-bar { display: flex; height: 10px; background-color: var(--primary-light); border-radius: 5px; overflow: hidden; width: 200px; }
+        .progress-segment { height: 100%; transition: width 0.3s; }
+        .progress-failed { background-color: var(--status-failed-bg); }
+        .progress-broken { background-color: var(--status-broken-bg); }
+        .status-tags { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+        .status-tag { padding: 3px 10px; border-radius: 12px; color: white; font-weight: 500;}
+        .status-failed { background-color: var(--status-failed-bg); }
+        .status-broken { background-color: var(--status-broken-bg); color: #121212; }
+        body.dark-mode .status-broken { color: #e0e0e0; }
+        #loader { font-size: 18px; text-align: center; padding: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Allure Failure Analysis</h1>
+                <div class="header-meta">
+                    <span>Generated on: <span id="meta-date">...</span></span> |
+                    <span>Total Failures: <span id="meta-total">...</span></span> |
+                    <span>Unique Groups: <span id="meta-groups">...</span></span>
+                </div>
+            </div>
+            <div class="controls">
+                <input type="text" id="search-box" placeholder="Filter groups...">
+                <button id="dark-mode-toggle" title="Toggle Dark Mode">🌓</button>
+            </div>
+        </div>
+        <div id="groups-container">
+            <div id="loader">Loading report data...</div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const escapeHtml = (unsafe) => 
+                unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+
+            function createGroupCardHTML(group) {
+                const epicsHtml = group.epics.map(e => `<span class="label-tag">${escapeHtml(e)}</span>`).join('') || 'N/A';
+                const featuresHtml = group.features.map(f => `<span class="label-tag">${escapeHtml(f)}</span>`).join('') || 'N/A';
+                
+                const statusCounts = group.status_counts || {};
+                const failedCount = statusCounts.failed || 0;
+                const brokenCount = statusCounts.broken || 0;
+                const totalInGroup = group.failure_count;
+
+                const failedPercent = totalInGroup > 0 ? (failedCount / totalInGroup) * 100 : 0;
+                const brokenPercent = totalInGroup > 0 ? (brokenCount / totalInGroup) * 100 : 0;
+                
+                let statusTagsHtml = '';
+                let progressBarTitle = [];
+                if (failedCount > 0) {
+                    statusTagsHtml += `<span class="status-tag status-failed">${failedCount} Failed</span>`;
+                    progressBarTitle.push(`${failedCount} Failed`);
+                }
+                if (brokenCount > 0) {
+                    statusTagsHtml += `<span class="status-tag status-broken">${brokenCount} Broken</span>`;
+                    progressBarTitle.push(`${brokenCount} Broken`);
+                }
+
+                return `
+                <div class="group-card" data-index="${group.id}">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="arrow">▶</span> Group ${group.id}: ${escapeHtml(group.title)}
+                        </div>
+                        <div class="card-summary">
+                            <div class="status-tags">${statusTagsHtml}</div>
+                            <div class="progress-bar" title="${progressBarTitle.join(', ')}">
+                                <div class="progress-segment progress-failed" style="width: ${failedPercent.toFixed(2)}%;"></div>
+                                <div class="progress-segment progress-broken" style="width: ${brokenPercent.toFixed(2)}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="fingerprint">
+                            <h4>Fingerprint</h4>
+                            <code><b>What:</b> ${escapeHtml(group.fingerprint_what)}</code><br>
+                            <code><b>Where:</b> ${escapeHtml(group.fingerprint_where)}</code>
+                        </div>
+                        <div class="details">
+                            <h4>Affected Areas</h4>
+                            <p><b>Epics:</b> ${epicsHtml}</p>
+                            <p><b>Features:</b> ${featuresHtml}</p>
+                        </div>
+                        <div class="example">
+                            <h4>Example from Test: <code>${escapeHtml(group.example.test_name)}</code></h4>
+                            <b>Original Message:</b>
+                            <pre>${escapeHtml(group.example.message)}</pre>
+                            <b>Full Stack Trace:</b>
+                            <pre>${escapeHtml(group.example.trace)}</pre>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            async function loadReport() {
+                const groupsContainer = document.getElementById('groups-container');
+                try {
+                    const response = await fetch('failure_analysis_report.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    
+                    // --- UPDATED: Calculate and render total status counts in header ---
+                    let totalFailed = 0;
+                    let totalBroken = 0;
+                    data.groups.forEach(g => {
+                        totalFailed += g.status_counts.failed || 0;
+                        totalBroken += g.status_counts.broken || 0;
+                    });
+                    
+                    document.getElementById('meta-date').textContent = new Date(data.metadata.generation_date).toLocaleString();
+                    document.getElementById('meta-total').innerHTML = `${data.metadata.total_failures} (<span style="color:var(--status-failed-bg);">${totalFailed} F</span>, <span style="color:var(--status-broken-bg);">${totalBroken} B</span>)`;
+                    document.getElementById('meta-groups').textContent = data.metadata.unique_groups;
+
+                    const allCardsHtml = data.groups.map(group => createGroupCardHTML(group)).join('');
+                    groupsContainer.innerHTML = allCardsHtml;
+
+                } catch (error) {
+                    groupsContainer.innerHTML = `<div id="loader" style="color: var(--status-failed-bg);">Failed to load report data: ${error.message}. Make sure you are running this from a web server.</div>`;
+                    console.error("Failed to fetch report data:", error);
+                }
+            }
+
+            // --- Event Listeners (unchanged) ---
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const searchBox = document.getElementById('search-box');
+            const groupsContainer = document.getElementById('groups-container');
+
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark-mode');
+            }
+            toggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            });
+
+            groupsContainer.addEventListener('click', (event) => {
+                const header = event.target.closest('.card-header');
+                if (header) {
+                    const content = header.nextElementSibling;
+                    const arrow = header.querySelector('.arrow');
+                    if (content && content.classList.contains('card-content')) {
+                        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                        arrow.classList.toggle('expanded');
+                    }
+                }
+            });
+            
+            searchBox.addEventListener('input', (event) => {
+                const searchTerm = event.target.value.toLowerCase();
+                document.querySelectorAll('.group-card').forEach(card => {
+                    card.style.display = card.textContent.toLowerCase().includes(searchTerm) ? '' : 'none';
+                });
+            });
+
+            loadReport();
+        });
+    </script>
+</body>
+</html>

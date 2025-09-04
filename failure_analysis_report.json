@@ -1,0 +1,393 @@
+{
+  "metadata": {
+    "generation_date": "2025-09-04T15:41:39.104942",
+    "total_failures": 264,
+    "unique_groups": 20
+  },
+  "groups": [
+    {
+      "id": 1,
+      "title": "No Error Message",
+      "failure_count": 29,
+      "percentage": 10.984848484848484,
+      "status_counts": {
+        "broken": 29
+      },
+      "fingerprint_what": "No Error Message",
+      "fingerprint_where": "(No test file location in trace)",
+      "epics": [
+        "LV-59354",
+        "LV-60573"
+      ],
+      "features": [
+        "Grouped WOs | View capital project design - Mobile",
+        "Support Simple BOM upload for Transmission WOs (Single WO)"
+      ],
+      "example": {
+        "test_name": "Should display negative Elevation",
+        "message": "No Error Message",
+        "trace": "TypeError: Cannot read properties of undefined (reading 'visibleWhen')\n    at ReviewApproveProjectContainerComponent.checkValidityOfWorkUnit (https://static.custom021.frankfurt.nortecview.com/app/main.js:59603:48)\n    at ReviewApproveProjectContainerComponent.buildWorkUnitTree (https://static.custom021.frankfurt.nortecview.com/app/main.js:59611:16)\n    at ReviewApproveProjectContainerComponent.refreshWorkUnitTree (https://static.custom021.frankfurt.nortecview.com/app/main.js:59582:10)\n    at ReviewApproveProjectContainerComponent.initSteps (https://static.custom021.frankfurt.nortecview.com/app/main.js:59823:12)\n    at subscriptions.push.combined$.pipe.subscribe.reviewApproveProjectService.hasProjectStatusChanged [as next] (https://static.custom021.frankfurt.nortecview.com/app/main.js:59269:16)\n    at ConsumerObserver.next (https://static.custom021.frankfurt.nortecview.com/app/vendor.js:85800:25)\n    at SafeSubscriber._next (https://static.custom021.frankfurt.nortecview.com/app/vendor.js:85769:22)\n    at SafeSubscriber.next (https://static.custom021.frankfurt.nortecview.com/app/vendor.js:85742:12)\n    at https://static.custom021.frankfurt.nortecview.com/app/vendor.js:86266:26\n    at OperatorSubscriber._next (https://static.custom021.frankfurt.nortecview.com/app/vendor.js:86896:9)"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "failure_count": 24,
+      "percentage": 9.090909090909092,
+      "status_counts": {
+        "failed": 24
+      },
+      "fingerprint_what": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "fingerprint_where": "locate-workflow-creation-flow.mobile.spec.ts:116:5",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "LV-65965 [V3] Creation Flow - Manual Entry - Show Only Point Assets [Point, WU]",
+        "message": "Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation9.nortecview.com/api/v1/config/mapping/asset-types\nEXCEPTION:\n[\n  {\n    \"field\": \"mappingWorkflow\",\n    \"errorCode\": \"INVALID_INPUT\",\n    \"description\": \"mappingWorkflow.ENFORCE_MAPPING cannot be set when the ENFORCE_MAPPING toggle is off\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -7713042022,\n  \"title\": \"Immediate Enforce jhupqjgq\",\n  \"order\": 45,\n  \"geometryType\": \"POINT\",\n  \"maxJoints\": 0,\n  \"symbol\": \"electric-distribution-generator\",\n  \"layout\": {\n    \"id\": -4554623013,\n    \"key\": null,\n    \"sections\": [\n      {\n        \"id\": -1359920574,\n        \"title\": \"Section | Wagon587635\",\n        \"order\": 1,\n        \"fields\": [\n          {\n            \"id\": -2121644492,\n            \"active\": true,\n            \"barcodeRegex\": null,\n            \"behavior\": \"NORMAL\",\n            \"customData\": null,\n            \"defaultValues\": [],\n            \"esriName\": \"\",\n            \"helpInfo\": {\n              \"title\": \"Help Info | Sedan559586\",\n              \"paragraph\": \"Nulla temporibus voluptas eligendi placeat officia labore magnam ipsa. Pariatur dolorum cum quaerat dolorum dolorum. Culpa architecto sed expedita. Qui dignissimos quibusdam delectus repellendus sed unde mollitia minus. Doloribus aperiam optio. Corrupti architecto iste iure aut incidunt.\"\n            },\n            \"inheritedFromParent\": false,\n            \"isCatalogIndex\": false,\n            \"key\": \"customField-2121644492\",\n            \"layoutId\": -4554623013,\n            \"listRelationshipId\": null,\n            \"listType\": null,\n            \"mandatory\": false,\n            \"maxLength\": 50,\n            \"options\": [],\n            \"order\": 1,\n            \"partOfCatalog\": false,\n            \"partOfCu\": false,\n            \"cuFunctionality\": \"NONE\",\n            \"partOfMachine\": false,\n            \"placeholder\": null,\n            \"requireWhen\": {\n              \"isOn\": false,\n              \"operator\": null,\n              \"conditions\": []\n            },\n            \"sectionId\": -1359920574,\n            \"sharedListId\": null,\n            \"system\": false,\n            \"tagId\": null,\n            \"title\": \"Asset Name arise\",\n            \"type\": \"TEXT\",\n            \"unique\": false,\n            \"valueWhen\": null,\n            \"visibleWhen\": {\n              \"isOn\": true,\n              \"operator\": null,\n              \"conditions\": []\n            },\n            \"regexValue\": null,\n            \"validation\": null\n          }\n        ],\n        \"layoutId\": -4554623013\n      }\n    ]\n  },\n  \"structure\": \"STANDALONE\",\n  \"components\": {},\n  \"helpInfo\": {\n    \"title\": \"Help Info | Hatchback562812\",\n    \"paragraph\": \"Culpa corrupti repudiandae temporibus optio qui molestias blanditiis modi tempora. Alias veniam error porro. Tenetur expedita sequi dolore. Non nesciunt asperiores veritatis ab ea dolorem.\"\n  },\n  \"visibleWhen\": {\n    \"isOn\": false,\n    \"operator\": null,\n    \"conditions\": []\n  },\n  \"requireWhen\": {\n    \"isOn\": false,\n    \"operator\": null,\n    \"conditions\": []\n  },\n  \"previewCard\": {\n    \"title\": \"<|entityTitle| >\",\n    \"subtitle\": \"<|:lastUpdated| >\",\n    \"secondaryTitle\": \"\",\n    \"secondarySubtitle\": \"\"\n  },\n  \"behavior\": \"NORMAL\",\n  \"partOfCatalog\": false,\n  \"immediateMap\": true,\n  \"mappingWorkflow\": \"ENFORCE_MAPPING\",\n  \"barcodeSupport\": null,\n  \"barcodeRegex\": null,\n  \"pinType\": \"TRIANGLE\",\n  \"lineType\": null,\n  \"active\": true,\n  \"partOfCu\": false,\n  \"partOfMachine\": false,\n  \"type\": \"ASSET_TYPE\",\n  \"entityType\": \"ASSET_TYPE\",\n  \"automaticMapping\": false,\n  \"deleted\": false,\n  \"conditionalSymbologies\": null,\n  \"coloring\": {\n    \"linePinColor\": \"#7f7caf\",\n    \"symbolColor\": \"#757575\"\n  },\n  \"formAttachmentWorkflow\": \"LATER\",\n  \"depthWorkflow\": \"LATER\",\n  \"snapPointAssetsWorkflow\": \"CREATE_NEW_ASSETS\"\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422",
+        "trace": "Error: Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation9.nortecview.com/api/v1/config/mapping/asset-types\nEXCEPTION:\n[\n  {\n    \"field\": \"mappingWorkflow\",\n    \"errorCode\": \"INVALID_INPUT\",\n    \"description\": \"mappingWorkflow.ENFORCE_MAPPING cannot be set when the ENFORCE_MAPPING toggle is off\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -7713042022,\n  \"title\": \"Immediate Enforce jhupqjgq\",\n  \"order\": 45,\n  \"geometryType\": \"POINT\",\n  \"maxJoints\": 0,\n  \"symbol\": \"electric-distribution-generator\",\n  \"layout\": {\n    \"id\": -4554623013,\n    \"key\": null,\n    \"sections\": [\n      {\n        \"id\": -1359920574,\n        \"title\": \"Section | Wagon587635\",\n        \"order\": 1,\n        \"fields\": [\n          {\n            \"id\": -2121644492,\n            \"active\": true,\n            \"barcodeRegex\": null,\n            \"behavior\": \"NORMAL\",\n            \"customData\": null,\n            \"defaultValues\": [],\n            \"esriName\": \"\",\n            \"helpInfo\": {\n              \"title\": \"Help Info | Sedan559586\",\n              \"paragraph\": \"Nulla temporibus voluptas eligendi placeat officia labore magnam ipsa. Pariatur dolorum cum quaerat dolorum dolorum. Culpa architecto sed expedita. Qui dignissimos quibusdam delectus repellendus sed unde mollitia minus. Doloribus aperiam optio. Corrupti architecto iste iure aut incidunt.\"\n            },\n            \"inheritedFromParent\": false,\n            \"isCatalogIndex\": false,\n            \"key\": \"customField-2121644492\",\n            \"layoutId\": -4554623013,\n            \"listRelationshipId\": null,\n            \"listType\": null,\n            \"mandatory\": false,\n            \"maxLength\": 50,\n            \"options\": [],\n            \"order\": 1,\n            \"partOfCatalog\": false,\n            \"partOfCu\": false,\n            \"cuFunctionality\": \"NONE\",\n            \"partOfMachine\": false,\n            \"placeholder\": null,\n            \"requireWhen\": {\n              \"isOn\": false,\n              \"operator\": null,\n              \"conditions\": []\n            },\n            \"sectionId\": -1359920574,\n            \"sharedListId\": null,\n            \"system\": false,\n            \"tagId\": null,\n            \"title\": \"Asset Name arise\",\n            \"type\": \"TEXT\",\n            \"unique\": false,\n            \"valueWhen\": null,\n            \"visibleWhen\": {\n              \"isOn\": true,\n              \"operator\": null,\n              \"conditions\": []\n            },\n            \"regexValue\": null,\n            \"validation\": null\n          }\n        ],\n        \"layoutId\": -4554623013\n      }\n    ]\n  },\n  \"structure\": \"STANDALONE\",\n  \"components\": {},\n  \"helpInfo\": {\n    \"title\": \"Help Info | Hatchback562812\",\n    \"paragraph\": \"Culpa corrupti repudiandae temporibus optio qui molestias blanditiis modi tempora. Alias veniam error porro. Tenetur expedita sequi dolore. Non nesciunt asperiores veritatis ab ea dolorem.\"\n  },\n  \"visibleWhen\": {\n    \"isOn\": false,\n    \"operator\": null,\n    \"conditions\": []\n  },\n  \"requireWhen\": {\n    \"isOn\": false,\n    \"operator\": null,\n    \"conditions\": []\n  },\n  \"previewCard\": {\n    \"title\": \"<|entityTitle| >\",\n    \"subtitle\": \"<|:lastUpdated| >\",\n    \"secondaryTitle\": \"\",\n    \"secondarySubtitle\": \"\"\n  },\n  \"behavior\": \"NORMAL\",\n  \"partOfCatalog\": false,\n  \"immediateMap\": true,\n  \"mappingWorkflow\": \"ENFORCE_MAPPING\",\n  \"barcodeSupport\": null,\n  \"barcodeRegex\": null,\n  \"pinType\": \"TRIANGLE\",\n  \"lineType\": null,\n  \"active\": true,\n  \"partOfCu\": false,\n  \"partOfMachine\": false,\n  \"type\": \"ASSET_TYPE\",\n  \"entityType\": \"ASSET_TYPE\",\n  \"automaticMapping\": false,\n  \"deleted\": false,\n  \"conditionalSymbologies\": null,\n  \"coloring\": {\n    \"linePinColor\": \"#7f7caf\",\n    \"symbolColor\": \"#757575\"\n  },\n  \"formAttachmentWorkflow\": \"LATER\",\n  \"depthWorkflow\": \"LATER\",\n  \"snapPointAssetsWorkflow\": \"CREATE_NEW_ASSETS\"\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422\n    at SoftExpect.toStrictEqual (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/soft-expect.ts:509:27)\n    at Function.verifyResponseStatusCode (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/api-verifications.ts:35:5)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Function.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async AssetTypeApiElement.createAssetType (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/api/config/mapping/asset-type/asset-type.api.element.ts:30:3)\n    at async AssetTypeApiElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async /home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/mobile/locate-workflow/content/specs/locate-workflow-creation-flow.mobile.spec.ts:116:5\n    at async Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/mobile/locate-workflow/content/specs/locate-workflow-creation-flow.mobile.spec.ts:72:7)"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]: Waiting failed: 30000ms exceeded",
+      "failure_count": 24,
+      "percentage": 9.090909090909092,
+      "status_counts": {
+        "failed": 24
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]: Waiting failed: 30000ms exceeded",
+      "fingerprint_where": "calculation-for-form-and-wu.web.spec.ts:63:4",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Should display 'Unsupported operation' if divide by zero",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at LeftTreeWebElement.waitForXpathToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:124:5)\n    at LeftTreeWebElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at LeftTreeWebElement.clickWorkUnits (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/web/left-tree.web.element.ts:123:3)\n    at LeftTreeWebElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkUnitUnderWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:980:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/calculation/content/specs/calculation-for-form-and-wu.web.spec.ts:63:4)"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'button-steps') and contains(@class,'lv-button-primary') ]\"}]]]: Waiting failed: 30000ms exceeded",
+      "failure_count": 20,
+      "percentage": 7.575757575757576,
+      "status_counts": {
+        "failed": 20
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'button-steps') and contains(@class,'lv-button-primary') ]\"}]]]: Waiting failed: 30000ms exceeded",
+      "fingerprint_where": "assets-manual-depth-and-warning.web.spec.ts:22:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Should display negative Elevation",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'button-steps') and contains(@class,'lv-button-primary') ]\"}]]]` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'button-steps') and contains(@class,'lv-button-primary') ]\"}]]]` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at ReviewAndApproveWebComponent.waitForXpathToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:124:5)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.getTextFromElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:822:5)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.verifyRnAWorkOrderStatus (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:645:22)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/assets-tab/content/specs/assets-manual-depth-and-warning.web.spec.ts:22:3)"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Network error: net::ERR_INTERNET_DISCONNECTED",
+      "failure_count": 20,
+      "percentage": 7.575757575757576,
+      "status_counts": {
+        "broken": 20
+      },
+      "fingerprint_what": "Network error: net::ERR_INTERNET_DISCONNECTED",
+      "fingerprint_where": "(No test file location in trace)",
+      "epics": [
+        "LV-61806"
+      ],
+      "features": [
+        "Cutout Support For Transmission - Create Asset From Excluded"
+      ],
+      "example": {
+        "test_name": "V3 - Verify use asset entirely saved when offline",
+        "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+        "trace": "No Stack Trace"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "failure_count": 20,
+      "percentage": 7.575757575757576,
+      "status_counts": {
+        "failed": 20
+      },
+      "fingerprint_what": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "fingerprint_where": "attach-forms-to-work-units-edit-mode-map.mobile.spec.ts:277:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "V3 - User can add/remove linked assets and work units - Assets",
+        "message": "Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation5.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -7778821728,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 86,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 142,\n  \"projectId\": 140,\n  \"uuid\": \"6dfdcd5a-f93c-4f7b-bcc7-98f66505a513\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422",
+        "trace": "Error: Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation5.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -7778821728,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 86,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 142,\n  \"projectId\": 140,\n  \"uuid\": \"6dfdcd5a-f93c-4f7b-bcc7-98f66505a513\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422\n    at SoftExpect.toStrictEqual (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/soft-expect.ts:509:27)\n    at Function.verifyResponseStatusCode (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/api-verifications.ts:35:5)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at EntitiesLinksApiElement.createEntitiesLinks (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/api/field/entities-links/entities-links.api.element.ts:37:3)\n    at EntitiesLinksApiElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/mobile/forms/child-components/attach-forms-to-work-units/content/specs/attach-forms-to-work-units-edit-mode-map.mobile.spec.ts:277:3)"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Backend error: NO_ENTITY_FOUND_ERROR",
+      "failure_count": 14,
+      "percentage": 5.303030303030303,
+      "status_counts": {
+        "broken": 14
+      },
+      "fingerprint_what": "Backend error: NO_ENTITY_FOUND_ERROR",
+      "fingerprint_where": "(No test file location in trace)",
+      "epics": [
+        "LV-58938"
+      ],
+      "features": [
+        "Set WO Location Within Creation - Phase 1"
+      ],
+      "example": {
+        "test_name": "Verify retake button when location is off",
+        "message": "NO_ENTITY_FOUND_ERROR",
+        "trace": "No Stack Trace"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Failed to load resource: the server responded with a status of <STATUS_CODE> ()",
+      "failure_count": 12,
+      "percentage": 4.545454545454546,
+      "status_counts": {
+        "broken": 12
+      },
+      "fingerprint_what": "Failed to load resource: the server responded with a status of <STATUS_CODE> ()",
+      "fingerprint_where": "(No test file location in trace)",
+      "epics": [
+        "LV-59354",
+        "LV-60573"
+      ],
+      "features": [
+        "Grouped WOs | View capital project design - Mobile",
+        "Support Simple BOM upload for Transmission WOs (Single WO)"
+      ],
+      "example": {
+        "test_name": "Admin UI updates immediately on context switch",
+        "message": "Failed to load resource: the server responded with a status of 500 ()",
+        "trace": "No Stack Trace"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "failure_count": 12,
+      "percentage": 4.545454545454546,
+      "status_counts": {
+        "failed": 12
+      },
+      "fingerprint_what": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "fingerprint_where": "attach-forms-to-assets-go-to-button.web.spec.ts:312:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Review & Approve - Attache Exclude from Attached Assets when CUTOUT_ASSETS to toggle is off",
+        "message": "Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation6.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -4877532504,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 90,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 145,\n  \"projectId\": 144,\n  \"uuid\": \"298984d9-cda5-43b0-b56d-5df78c489457\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422",
+        "trace": "Error: Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation6.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -4877532504,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 90,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 145,\n  \"projectId\": 144,\n  \"uuid\": \"298984d9-cda5-43b0-b56d-5df78c489457\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422\n    at SoftExpect.toStrictEqual (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/soft-expect.ts:509:27)\n    at Function.verifyResponseStatusCode (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/api-verifications.ts:35:5)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at EntitiesLinksApiElement.createEntitiesLinks (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/api/field/entities-links/entities-links.api.element.ts:37:3)\n    at EntitiesLinksApiElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/attachments/child-components/attach-forms-to-assets/content/specs/attach-forms-to-assets-go-to-button.web.spec.ts:312:3)"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]: Protocol error (DOM.describeNode): Cannot find context with specified id",
+      "failure_count": 10,
+      "percentage": 3.787878787878788,
+      "status_counts": {
+        "failed": 10
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]: Protocol error (DOM.describeNode): Cannot find context with specified id",
+      "fingerprint_where": "pending-attachments.web.spec.ts:105:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Should resolve Pending Attachment on Root level",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]` failed: Protocol error (DOM.describeNode): Cannot find context with specified id",
+        "trace": "ProtocolError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]` failed: Protocol error (DOM.describeNode): Cannot find context with specified id\n    at Callback.<instance_members_initializer> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/CallbackRegistry.ts:114:12)\n    at new Callback (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/CallbackRegistry.ts:119:3)\n    at CallbackRegistry.create (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/CallbackRegistry.ts:27:22)\n    at Connection._rawSend (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/Connection.ts:125:22)\n    at CdpCDPSession.send (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/CDPSession.ts:95:29)\n    at IsolatedWorld.transferHandle (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/IsolatedWorld.ts:234:36)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:206:38)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:540:9)\n    at processTimers (node:internal/timers:514:7)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at ReviewAndApproveLeftPanelWebComponent.clickElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:653:5)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.ensureFocusByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:4270:4)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.sendValueTextToElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:3554:21)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.searchForProject (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/review-and-approve-left-panel/content/review-and-approve-left-panel.web.component.ts:93:3)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.waitForWorkOrderWithIntervals (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/review-and-approve-left-panel/content/review-and-approve-left-panel.web.component.ts:217:4)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.searchForProjectAndWaitLoaderIsFinish (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:953:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:892:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkUnitUnderWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:978:4)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at FormsTabWebComponent.navigateToFormUnderWorkUnit (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/forms-tab/content/forms-tab.web.component.ts:70:3)\n    at FormsTabWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/attachments/content/specs/pending-attachments.web.spec.ts:105:3)"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Timeout for selector: lv-entities-map: Waiting failed: 30000ms exceeded",
+      "failure_count": 10,
+      "percentage": 3.787878787878788,
+      "status_counts": {
+        "failed": 10
+      },
+      "fingerprint_what": "Timeout for selector: lv-entities-map: Waiting failed: 30000ms exceeded",
+      "fingerprint_where": "location-workflow-wo-location-view-mode.mobile.spec.ts:84:19",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Verify WO Location not displayed when there is other mapping",
+        "message": "Waiting for selector `lv-entities-map` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `lv-entities-map` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at MapMobileMobileElement.waitForSelectorToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:68:5)\n    at MapMobileMobileElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at MapMobileMobileElement.waitForBaseMapToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/mobile/map-mobile.mobile.element.ts:758:3)\n    at MapMobileMobileElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at LocationWorkflowMobileComponent.fillWorkOrderNameAndWaitForMapToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/mobile/work-orders/child-components/location-workflow/content/location-workflow.mobile.component.ts:100:3)\n    at LocationWorkflowMobileComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at LocationWorkflowMobileComponent.clickOnCreateWorkOrderAndWaitForMapToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/mobile/work-orders/child-components/location-workflow/content/location-workflow.mobile.component.ts:78:3)\n    at LocationWorkflowMobileComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/mobile/work-orders/child-components/location-workflow/content/specs/location-workflow-wo-location-view-mode.mobile.spec.ts:84:19)"
+      }
+    },
+    {
+      "id": 12,
+      "title": "CSP Violation: Refused to execute inline script directive: \"default-src https://*.nortecview.com https://*.locusview.io https://*.locusview.com https://*.arcgisonline.com https://*.nortecview.localhost https://*.talkjs.com wss://*.talkjs.com https://api.mapbox.com https://*.api.mapbox.com https://*.trackjs.com https://*.arcgis.com https://api-js.mixpanel.com https://firebasestorage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://recaptcha.google.com/recaptcha/ blob: 'unsafe-eval'\". Either the 'unsafe-inline' keyword, a hash ('sha256-...'), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. Note also that 'script-src' was not explicitly set, so 'default-src' is used as a fallback.",
+      "failure_count": 9,
+      "percentage": 3.4090909090909087,
+      "status_counts": {
+        "broken": 9
+      },
+      "fingerprint_what": "CSP Violation: Refused to execute inline script directive: \"default-src https://*.nortecview.com https://*.locusview.io https://*.locusview.com https://*.arcgisonline.com https://*.nortecview.localhost https://*.talkjs.com wss://*.talkjs.com https://api.mapbox.com https://*.api.mapbox.com https://*.trackjs.com https://*.arcgis.com https://api-js.mixpanel.com https://firebasestorage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://recaptcha.google.com/recaptcha/ blob: 'unsafe-eval'\". Either the 'unsafe-inline' keyword, a hash ('sha256-...'), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. Note also that 'script-src' was not explicitly set, so 'default-src' is used as a fallback.",
+      "fingerprint_where": "(No test file location in trace)",
+      "epics": [
+        "LV-51266"
+      ],
+      "features": [],
+      "example": {
+        "test_name": "Create filter and verify it is saved when back to project and not exist on another project",
+        "message": "Refused to execute inline event handler because it violates the following Content Security Policy directive: \"default-src https://*.nortecview.com https://*.locusview.io https://*.locusview.com https://*.arcgisonline.com https://*.nortecview.localhost https://*.talkjs.com wss://*.talkjs.com https://api.mapbox.com https://*.api.mapbox.com https://*.trackjs.com https://*.arcgis.com https://api-js.mixpanel.com https://firebasestorage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://recaptcha.google.com/recaptcha/ blob: 'unsafe-eval'\". Either the 'unsafe-inline' keyword, a hash ('sha256-...'), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. Note also that 'script-src' was not explicitly set, so 'default-src' is used as a fallback.\n",
+        "trace": "No Stack Trace"
+      }
+    },
+    {
+      "id": 13,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]: Protocol error (DOM.describeNode): Cannot find context with specified id",
+      "failure_count": 9,
+      "percentage": 3.4090909090909087,
+      "status_counts": {
+        "failed": 9
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]: Protocol error (DOM.describeNode): Cannot find context with specified id",
+      "fingerprint_where": "pending-attachments.web.spec.ts:129:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Should resolve Pending Attachment on Root level",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]` failed: Protocol error (DOM.describeNode): Cannot find context with specified id",
+        "trace": "ProtocolError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-search-input[@id='search-input']//input\"}]]]` failed: Protocol error (DOM.describeNode): Cannot find context with specified id\n    at Callback.<instance_members_initializer> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/CallbackRegistry.ts:114:12)\n    at new Callback (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/CallbackRegistry.ts:119:3)\n    at CallbackRegistry.create (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/CallbackRegistry.ts:27:22)\n    at Connection._rawSend (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/Connection.ts:125:22)\n    at CdpCDPSession.send (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/CDPSession.ts:95:29)\n    at IsolatedWorld.transferHandle (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/IsolatedWorld.ts:234:36)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:206:38)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:540:9)\n    at processTimers (node:internal/timers:514:7)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at ReviewAndApproveLeftPanelWebComponent.clickElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:653:5)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.ensureFocusByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:4270:4)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.sendValueTextToElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:3554:21)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.searchForProject (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/review-and-approve-left-panel/content/review-and-approve-left-panel.web.component.ts:93:3)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.waitForWorkOrderWithIntervals (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/review-and-approve-left-panel/content/review-and-approve-left-panel.web.component.ts:217:4)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.searchForProjectAndWaitLoaderIsFinish (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:953:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:892:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkUnitUnderWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:978:4)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at AssetsTabWebComponent.navigateToAssetUnderWorkUnitWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/assets-tab/content/assets-tab.web.component.ts:165:3)\n    at AssetsTabWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/attachments/content/specs/pending-attachments.web.spec.ts:129:3)"
+      }
+    },
+    {
+      "id": 14,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]: Waiting failed: 30000ms exceeded",
+      "failure_count": 8,
+      "percentage": 3.0303030303030303,
+      "status_counts": {
+        "failed": 8
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]: Waiting failed: 30000ms exceeded",
+      "fingerprint_where": "calculation-for-form-and-wu.web.spec.ts:29:4",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Should display reset popup when editing Form with Calculation field",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//lv-side-bar-tree-page//span[contains(text(), \\\"Work Units\\\")]\"}]]]` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at LeftTreeWebElement.waitForXpathToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:124:5)\n    at LeftTreeWebElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at LeftTreeWebElement.clickWorkUnits (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/web/left-tree.web.element.ts:123:3)\n    at LeftTreeWebElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkUnitUnderWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:980:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/calculation/content/specs/calculation-for-form-and-wu.web.spec.ts:29:4)"
+      }
+    },
+    {
+      "id": 15,
+      "title": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "failure_count": 8,
+      "percentage": 3.0303030303030303,
+      "status_counts": {
+        "failed": 8
+      },
+      "fingerprint_what": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "fingerprint_where": "attach-forms-to-work-units-map-highlighting.web.spec.ts:134:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "R&A - Unchecking a Work Unit checkbox in Edit mode restores normal symbology - work unit level",
+        "message": "Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation6.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -4005178731,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 91,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 151,\n  \"projectId\": null,\n  \"uuid\": \"0b1fbc63-9f26-4b1e-9de4-54e5230261e1\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422",
+        "trace": "Error: Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation6.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -4005178731,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 91,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 151,\n  \"projectId\": null,\n  \"uuid\": \"0b1fbc63-9f26-4b1e-9de4-54e5230261e1\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422\n    at SoftExpect.toStrictEqual (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/soft-expect.ts:509:27)\n    at Function.verifyResponseStatusCode (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/api-verifications.ts:35:5)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at EntitiesLinksApiElement.createEntitiesLinks (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/api/field/entities-links/entities-links.api.element.ts:37:3)\n    at EntitiesLinksApiElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/forms-tab/child-components/attach-forms-to-work-units/content/specs/attach-forms-to-work-units-map-highlighting.web.spec.ts:134:3)"
+      }
+    },
+    {
+      "id": 16,
+      "title": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "failure_count": 8,
+      "percentage": 3.0303030303030303,
+      "status_counts": {
+        "failed": 8
+      },
+      "fingerprint_what": "Assertion: Expected status code 200 but received 422 when executing URL with the following details:",
+      "fingerprint_where": "attached-work-units-card-edit-icon.web.spec.ts:168:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Review & Approve - User can edit attached Work Units",
+        "message": "Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation6.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -4995361563,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 93,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 150,\n  \"projectId\": null,\n  \"uuid\": \"074687f8-e476-48f3-8261-0bc80e39edad\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422",
+        "trace": "Error: Custom message:\n  Expected the status code to be 200, but found 422 when executing URL with the following details:\nMETHOD: POST\nURL: https://automation6.nortecview.com/api/v1/links\nEXCEPTION:\n[\n  {\n    \"field\": \"\",\n    \"errorCode\": \"NOT_ALLOWED\",\n    \"description\": \"Attachment of form to work unit is not allowed\",\n    \"parameters\": [],\n    \"serverInfo\": {},\n    \"fieldTitle\": \"\"\n  }\n]\nPAYLOAD: \n{\n  \"id\": -4995361563,\n  \"entityType1\": \"FORM\",\n  \"entityId1\": 93,\n  \"entityType2\": \"PROJECT\",\n  \"entityId2\": 150,\n  \"projectId\": null,\n  \"uuid\": \"074687f8-e476-48f3-8261-0bc80e39edad\",\n  \"edgeType\": null,\n  \"order\": null,\n  \"isDeleted\": false,\n  \"attachmentName\": null,\n  \"createDate\": null,\n  \"updateUserId\": null,\n  \"updateUser\": null\n}\n\n\n\nexpect(received).toStrictEqual(expected) // deep equality\n\nExpected: 200\nReceived: 422\n    at SoftExpect.toStrictEqual (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/soft-expect.ts:509:27)\n    at Function.verifyResponseStatusCode (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/assertions/api-verifications.ts:35:5)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Function.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at EntitiesLinksApiElement.createEntitiesLinks (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/elements/api/field/entities-links/entities-links.api.element.ts:37:3)\n    at EntitiesLinksApiElement.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/forms-tab/child-components/attach-forms-to-work-units/content/specs/attached-work-units-card-edit-icon.web.spec.ts:168:3)"
+      }
+    },
+    {
+      "id": 17,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Edge Type']\"}]]]: Waiting failed: 30000ms exceeded",
+      "failure_count": 8,
+      "percentage": 3.0303030303030303,
+      "status_counts": {
+        "failed": 8
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Edge Type']\"}]]]: Waiting failed: 30000ms exceeded",
+      "fingerprint_where": "report-builder-v2-custom-report.web.spec.ts:485:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Asset Type Report - Custom Report - V2",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Edge Type']\"}]]]` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Edge Type']\"}]]]` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at async CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at async CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at async ReportBuilderWebComponent.clickElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:653:5)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.selectEntityType (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:1351:3)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setOriginFields (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:939:5)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setHeaderElementValue (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:795:5)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setHeaderElementSettings (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:691:3)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setReportTypeHeader (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:680:4)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setReportTypeHeaderAndFilename (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:607:3)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.createReport (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:279:4)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/specs/report-builder-v2-custom-report.web.spec.ts:485:3)"
+      }
+    },
+    {
+      "id": 18,
+      "title": "Execution context was destroyed, most likely because of a navigation.",
+      "failure_count": 7,
+      "percentage": 2.6515151515151514,
+      "status_counts": {
+        "failed": 7
+      },
+      "fingerprint_what": "Execution context was destroyed, most likely because of a navigation.",
+      "fingerprint_where": "preview-card-prefix-and-suffix.web.spec.ts:810:3",
+      "epics": [
+        "LV-55191"
+      ],
+      "features": [],
+      "example": {
+        "test_name": "LV-58748 [Config][Transaction type] Add Field With Suffix & Prefix - verify R&A",
+        "message": "Execution context was destroyed, most likely because of a navigation.",
+        "trace": "Error: Execution context was destroyed, most likely because of a navigation.\n    at rewriteError (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/ExecutionContext.ts:506:11)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:540:9)\n    at processTimers (node:internal/timers:514:7)\n    at ExecutionContext.#evaluate (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/ExecutionContext.ts:429:7)\n    at ExecutionContext.evaluate (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/ExecutionContext.ts:284:12)\n    at IsolatedWorld.evaluate (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/cdp/IsolatedWorld.ts:192:12)\n    at CdpJSHandle.evaluate (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/JSHandle.ts:76:12)\n    at CdpElementHandle.evaluate (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/ElementHandle.ts:285:12)\n    at ReviewAndApproveLeftPanelWebComponent.clickElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:663:5)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.ensureFocusByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:4270:4)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.sendValueTextToElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:3554:21)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.searchForProject (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/review-and-approve-left-panel/content/review-and-approve-left-panel.web.component.ts:93:3)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.searchForProjectAndWaitLoaderIsFinish (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:950:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveWebComponent.navigateToWorkOrder (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/content/review-and-approve.web.component.ts:892:3)\n    at ReviewAndApproveWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/entity-types/preview-card/content/specs/preview-card-prefix-and-suffix.web.spec.ts:810:3)"
+      }
+    },
+    {
+      "id": 19,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Form Type",
+      "failure_count": 6,
+      "percentage": 2.272727272727273,
+      "status_counts": {
+        "failed": 6
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Form Type",
+      "fingerprint_where": "All Fields']\"}]]]: Waiting failed: 30000ms exceeded|report-builder-v2-custom-report.web.spec.ts:230:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Project Type Report - Custom Report - V2",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Form Type|All Fields']\"}]]]` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@class,'option-title') and text()='Form Type|All Fields']\"}]]]` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at async CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at async CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at async ReportBuilderWebComponent.clickElementByXpath (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:653:5)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.selectEntityType (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:1351:3)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setSourceTypeEntity (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:1331:5)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setSurvey (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:1239:4)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.setReportTypeLayout (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:1086:6)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async ReportBuilderWebComponent.createReport (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/report-builder.web.component.ts:283:6)\n    at async ReportBuilderWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at async Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/business-logic/report-builder/content/specs/report-builder-v2-custom-report.web.spec.ts:230:3)"
+      }
+    },
+    {
+      "id": 20,
+      "title": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@data-automation-web, \\\"mat-tree-node\\\")]//*[text()='Compatible Units']\"}]]]: Waiting failed: 30000ms exceeded",
+      "failure_count": 6,
+      "percentage": 2.272727272727273,
+      "status_counts": {
+        "failed": 6
+      },
+      "fingerprint_what": "Timeout for selector: [[[{\"name\":\"xpath\",\"value\":\"//*[contains(@data-automation-web, \\\"mat-tree-node\\\")]//*[text()='Compatible Units']\"}]]]: Waiting failed: 30000ms exceeded",
+      "fingerprint_where": "cu-comparison.web.spec.ts:15:3",
+      "epics": [],
+      "features": [],
+      "example": {
+        "test_name": "Verify filter message appears after filtering in comparison table",
+        "message": "Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@data-automation-web, \\\"mat-tree-node\\\")]//*[text()='Compatible Units']\"}]]]` failed: Waiting failed: 30000ms exceeded",
+        "trace": "TimeoutError: Waiting for selector `[[[{\"name\":\"xpath\",\"value\":\"//*[contains(@data-automation-web, \\\"mat-tree-node\\\")]//*[text()='Compatible Units']\"}]]]` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/WaitTask.ts:82:28)\n    at IsolatedWorld.waitForFunction (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Realm.ts:74:22)\n    at Function.waitFor (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/common/QueryHandler.ts:172:50)\n    at CdpFrame.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Frame.ts:738:13)\n    at CdpPage.waitForSelector (/home/jenkins/workspace/automation_nightly_regression/automation_ts/node_modules/puppeteer-core/src/api/Page.ts:2849:12)\n    at ReviewAndApproveLeftPanelWebComponent.waitForXpathToBeVisible (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/tools/clients/page-actions.ts:124:5)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at ReviewAndApproveLeftPanelWebComponent.clickOnTabByTitle (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/review-and-approve/child-components/review-and-approve-left-panel/content/review-and-approve-left-panel.web.component.ts:243:3)\n    at ReviewAndApproveLeftPanelWebComponent.descriptor.value (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/helpers/reportHelper.ts:34:14)\n    at Object.<anonymous> (/home/jenkins/workspace/automation_nightly_regression/automation_ts/src/components/web/configuration/entity-types/compatible-units/child-components/cu-comparison/content/cu-comparison.web.spec.ts:15:3)"
+      }
+    }
+  ]
+}
