@@ -1,7 +1,7 @@
 # Allure Failure Analyzer
 A powerful command-line tool to analyze Allure test reports, intelligently group failures, and generate a modern, interactive HTML dashboard to help you identify the root causes of your test failures quickly.
 
-<!-- It's recommended to add a real screenshot URL here -->
+![alt text](image.png)
 
 ## Overview
 Running hundreds or thousands of automated tests can generate a massive amount of data. Sifting through failed tests to find the real, underlying issues is time-consuming and inefficient. This tool automates that process.
