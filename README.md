@@ -1,117 +1,184 @@
 # Allure Failure Analyzer
-A powerful command-line tool to analyze Allure test reports, intelligently group failures, and generate a modern, interactive HTML dashboard to help you identify the root causes of your test failures quickly.
+
+> A fast, configurable CLI that scans **Allure** results, **groups failures by root cause**, and produces an easy‑to‑read **interactive HTML** (and JSON/Markdown) report.
 
 ![alt text](image.png)
 
+
+---
+
+## Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [How It Works](#how-it-works)
+- [Notes & Tips](#notes--tips)
+- [Troubleshooting](#troubleshooting)
+- [FAQ](#faq)
+- [License](#license)
+
+---
+
 ## Overview
-Running hundreds or thousands of automated tests can generate a massive amount of data. Sifting through failed tests to find the real, underlying issues is time-consuming and inefficient. This tool automates that process.
+Running hundreds or thousands of automated tests can generate a massive amount of data. Sifting through failed tests to find the real, underlying issues is time‑consuming and inefficient. **This tool automates that process.**
 
-It scans your allure-results directory, extracts detailed information about every single failed or broken step within your tests, and uses a smart "fingerprinting" algorithm to group similar failures together. The final output is a clean, filterable, and easy-to-read HTML report that highlights your most critical issues, allowing you to focus your debugging efforts where they matter most.
+It scans your `allure-results` directory, extracts detailed information about every single **failed** or **broken** step, and uses a smart *fingerprinting* algorithm to group similar failures together. The final output is a clean, filterable HTML dashboard (plus JSON/Markdown) that highlights your most critical issues so you can focus debugging where it matters most.
 
-## Features
-- **Deep Failure Analysis:** Scans the entire JSON structure, including nested steps and attachments, to find the true source of every failure.
-- **Intelligent Grouping:** Uses a customizable "fingerprinting" logic to group failures by their root cause, not just by test name.
-- **Rich Interactive HTML Report:** Generates a single, self-contained HTML file with features like:
-  - Dark/Light mode toggle.
-  - Real-time search and filtering.
-  - Collapsible sections for each failure group.
-  - Stacked progress bars showing the ratio of Failed (Assertion Errors) vs. Broken (Technical Errors).
-- **Efficient & Fast:** Uses parallel processing to analyze thousands of test results in seconds.
-- **Highly Configurable:** All major settings are controlled via a simple config.yaml file.
-- **User-Friendly:** Includes a built-in web server to automatically open and serve the report for you.
+---
+
+## Key Features
+- **Deep Failure Analysis** — traverses results, containers, nested steps, and attachments.
+- **Intelligent Grouping** — regex‑driven fingerprinting clusters failures by **cause**, not by test name.
+- **Interactive HTML Report** — single, self‑contained page with:
+  - Dark/Light mode
+  - Live search & filters
+  - Collapsible groups with rich examples
+  - Progress bars for **Failed** vs **Broken**
+- **Fast & Parallel** — parses thousands of JSON files using `ProcessPoolExecutor`.
+- **Offline by Design** — never calls external services.
+- **Config‑First** — behavior controlled by a simple `config.yaml`.
+- **Friendly UX** — optional built‑in server to open the report locally.
+
+> You can also rely on the Markdown summary if you prefer a lightweight artifact, or consume the JSON directly in custom dashboards.
+
+---
 
 ## Project Structure
+```text
 allure-analyzer/
 ├── analyzer/
 │   ├── __init__.py         # Makes 'analyzer' a Python package
-│   ├── ingestion.py        # Module for fast, parallel data loading from Allure results
-│   ├── fingerprinter.py    # Core logic for creating failure fingerprints
-│   └── reporting.py        # Module for generating the final JSON data file
-├── config.yaml             # Main configuration file - THIS IS WHERE YOU SET YOUR PATHS
-├── main.py                 # The main script to run the tool
-├── report.html             # The static HTML template for the report
-└── requirements.txt        # Project dependencies
+│   ├── ingestion.py        # Fast, parallel data loading from Allure (results + containers + steps + attachments)
+│   ├── fingerprinter.py    # Core logic for creating stable failure fingerprints
+│   └── reporting.py        # Generates grouped data (JSON/MD) and supports the HTML dashboard
+├── config.yaml             # Main configuration file (edit this)
+├── main.py                 # Entrypoint: orchestrates ingestion → grouping → reporting
+├── report.html             # Static, self-contained dashboard (reads the generated JSON)
+└── requirements.txt        # Minimal dependencies (e.g., PyYAML)
+```
+
+---
 
 ## Prerequisites
-Python 3.7+
+- **Python** 3.8+ (3.11 recommended)
+- **pip** (Python package installer)
 
-pip (Python package installer)
+---
 
 ## Installation & Setup
-Clone or Download: Get the project files onto your local machine.
-
-Create a Virtual Environment (Recommended):
-
+```bash
+# 1) (Recommended) create and activate a virtual environment
 python -m venv .venv
-source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
+# macOS/Linux
+source .venv/bin/activate
+# Windows (PowerShell)
+# .venv\Scripts\Activate.ps1
 
-Install Dependencies:
-
+# 2) Install dependencies
 pip install -r requirements.txt
+```
+
+---
 
 ## Configuration
-Before running the tool, you must configure the config.yaml file.
+Edit `config.yaml` in the project root:
 
+```yaml
 # Path to the Allure results directory generated after a test run.
 # This is the most important setting.
 allure_results_directory: './allure-results'
 
-# The base name for the output report files (e.g., 'failure_analysis_report').
-# The tool will generate a .json and an .html file with this name.
+# The base name for the output report files.
+# The tool will generate a .json, a .md and use 'report.html' as the UI.
 output_report_file: 'failure_analysis_report.html'
 
-# The number of top failure groups to include in the report.
-# Use 0, -1, or any negative number to include ALL groups.
+# Number of top groups to include in summaries (0 or negative = show all).
 top_n_groups_to_report: 20
 
+# Used to locate the most relevant line in stack traces (first match wins).
+# For TypeScript/JS projects, use a stable path segment from your codebase
+# (e.g., 'src/', 'apps/web', 'packages/').
+project_root_package: 'src/'
+```
+
+**Choosing `project_root_package` (TS/JS):**
+- Pick a path segment unique to your code (e.g., `src/`, `apps/web`, `packages/`).
+- Avoid strings that may appear in `node_modules`.
+- If unsure, start with `src/` and refine later.
+
+---
+
 ## Usage
-Running the analyzer is a simple, two-step process.
-
-Run the Main Script:
-Execute the main.py script from your terminal in the project's root directory.
-
+```bash
+# Run the analyzer from the project root
 python main.py
+```
+What you get:
+- `failure_analysis_report.json` — structured grouped data
+- `failure_analysis_report.md` — concise Markdown summary
+- `report.html` — interactive dashboard (reads the JSON)
 
-The script will scan the directory specified in your config, process the data, and generate a failure_analysis_report.json file.
+To serve the HTML locally (optional):
+```bash
+python -m http.server
+# Open http://localhost:8000/report.html
+```
 
-View the Report:
-After generating the data, the script will ask you if you want to open the report:
-
-❔ Do you want to open the report 'report.html' now? (y/n):
-
-Type y and press Enter.
-
-The tool will start a local web server and automatically open the report in your default browser.
-
-To stop the server, go back to the terminal and press Ctrl+C.
-
-If you choose n, you can always start the server manually later by running python -m http.server and navigating to http://localhost:8000/report.html.
+---
 
 ## How It Works
-The tool operates in three main stages:
+**1) Ingestion (`analyzer/ingestion.py`)**
+- Scans `*-result.json` and correlates matching `*-container.json`
+- Recursively walks nested steps and attachments
+- Extracts `message`/`trace` from status details or attachments (text/JSON)
+- Captures the **failing step name** and all step names
+- Promotes `epic`/`feature` parameters into labels (for reporting)
 
-Ingestion (ingestion.py):
+**2) Fingerprinting (`analyzer/fingerprinter.py`)**
+- Normalizes volatile tokens (UUIDs, long hex, numbers, IPs, emails, URLs, timestamps, paths)
+- Collapses JIRA‑like keys: `ABCD-12345` → `ABCD-<NUM>`
+- Picks the most stable key:
+  1. failing step name
+  2. message
+  3. test fullName/name
+- Resolves code location from stack; falls back to labels (package/testClass/testMethod/suite/subSuite)
 
-Scans the allure-results directory in parallel.
+**3) Reporting (`analyzer/reporting.py` + `report.html`)**
+- Groups by fingerprint and sorts by frequency
+- Aggregates affected **epics** and **features**
+- Writes JSON & Markdown; the static HTML renders the JSON in the browser
 
-For each test, it performs a deep, recursive search through all steps and attachments.
+---
 
-It collects every single failed or broken step, ensuring no error is missed.
+## Notes & Tips
+- Keep `allure_results_directory` on SSD for best performance.
+- Ensure `project_root_package` points to your repo’s code path (e.g., `src/`) to improve stack matching.
+- If your adapters store stacks inside JSON attachments under custom keys, extend the extraction rules in `ingestion.py`.
 
-Fingerprinting (fingerprinter.py):
+---
 
-For each collected failure, it creates a unique "fingerprint" string.
+## Troubleshooting
+- **Too many unique groups** — Messages may be empty; grouping will then depend on failing step names. Consider refining normalization or adding adapter‑specific extractors.
+- **Code Location shows `(no trace)`** — Stacks might live in attachments. The ingestor reads containers and nested steps, but ensure your pipeline actually saves stack traces.
+- **No files found** — Verify `allure_results_directory` and that it contains `*-result.json` files.
 
-This fingerprint is generated by analyzing the error message and stack trace to find the root cause, ignoring dynamic data like IDs, timestamps, or file paths.
+---
 
-This allows the tool to group technically different errors that share the same root cause.
+## FAQ
+**Q: Does it call external services?**  
+A: No. The tool is completely offline.
 
-Reporting (reporting.py & report.html):
+**Q: Can I customize fingerprinting?**  
+A: Yes. Edit `analyzer/fingerprinter.py` to adjust normalization and key selection.
 
-The script groups all failures by their fingerprint.
+**Q: Is it suitable for TypeScript/Playwright/Cypress?**  
+A: Yes. It extracts stacks from text/JSON attachments and falls back to labels/steps when stacks are absent.
 
-It then generates a failure_analysis_report.json file containing the structured data for all the groups.
+---
 
-The report.html file reads this JSON data and dynamically builds the interactive dashboard in your browser.
-
-This tool was built to turn raw test data into actionable insights. Happy debugging!
+## License
+[MIT](https://github.com/keinar/AI-Bug-Reporter/blob/main/LICENSE)
