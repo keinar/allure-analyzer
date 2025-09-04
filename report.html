@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
     <title>Allure Failure Analysis Report</title>
     <style>
         :root {
@@ -44,7 +47,7 @@
         .progress-segment { height: 100%; transition: width 0.3s; }
         .progress-failed { background-color: var(--status-failed-bg); }
         .progress-broken { background-color: var(--status-broken-bg); }
-        .status-tags { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+        .status-tags { display: flex; gap: 8px; align-items: center; font-size: 12px; width: 80px; }
         .status-tag { padding: 3px 10px; border-radius: 12px; color: white; font-weight: 500;}
         .status-failed { background-color: var(--status-failed-bg); }
         .status-broken { background-color: var(--status-broken-bg); color: #121212; }
