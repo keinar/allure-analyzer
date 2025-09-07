@@ -85,7 +85,15 @@ output_report_file: 'failure_analysis_report.html'
 
 # The number of top failure groups to include in summaries (use 0 or negative to include all).
 top_n_groups_to_report: 20
+
+# Include broken tests (status='broken') in the analysis.
+# Set to false to hide broken tests entirely and only show 'failed' ones.
+include_broken: true
 ```
+
+**Notes**
+- If `include_broken: false`, groups containing only **broken** items will be omitted, and totals in the header reflect only **failed** items.
+- No UI change is required. The dashboard automatically hides the “Broken” tag when the count is zero.
 
 **IMPORTANT (about the HTML & JSON pairing):**
 - The dashboard HTML file is `report.html` (static). It **expects** to load `failure_analysis_report.json` from the same directory.
