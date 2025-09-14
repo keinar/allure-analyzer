@@ -6,13 +6,13 @@
     <title>Allure Failure Analysis Report</title>
     
     <link rel="stylesheet" href="/static/style.css">
-    
     <link rel="icon" type="image/x-icon" href="/static/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
     
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body data-proactive-summary="{{ proactive_summary_enabled }}">
     <div class="container">
         <div class="header">
             <div>
@@ -24,12 +24,24 @@
                 </div>
             </div>
             <div class="controls">
-                <label for="report-selector" style="margin-right: 5px;">Select Report:</label>
+                <label for="report-selector">Select Report:</label>
                 <select id="report-selector"></select>
                 <input type="text" id="search-box" placeholder="Filter groups...">
                 <button id="dark-mode-toggle" title="Toggle Dark Mode">🌓</button>
             </div>
         </div>
+        
+        <div id="dashboard-container">
+            <div class="chart-card">
+                <h3>Failures by Epic</h3>
+                <canvas id="failuresByEpicChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Failures by Status</h3>
+                <canvas id="statusBreakdownChart"></canvas>
+            </div>
+        </div>
+
         <div id="groups-container">
             <div id="loader">Loading reports list...</div>
         </div>
@@ -38,10 +50,9 @@
     <div id="ai-chat-container">
         <div id="chat-header">
             <h3>🤖 AI Report Analyst</h3>
-            <span id="chat-toggle-btn"></span>
         </div>
         <div id="chat-messages">
-            <div class="ai-message">Hello! I've read the failure report. Ask me anything about the data.</div>
+            <div class="ai-message">Hello! I'm analyzing the latest report for you...</div>
         </div>
         <form id="chat-input-form">
             <textarea id="chat-input" placeholder="Ask about the report... (Shift+Enter for new line)" rows="1"></textarea>

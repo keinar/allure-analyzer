@@ -6,6 +6,7 @@ from google.genai import types
 from dotenv import load_dotenv
 from typing import Dict, Any, List
 from datetime import datetime, timedelta
+import yaml
 
 load_dotenv() 
 
@@ -20,7 +21,6 @@ except Exception as e:
     print(f"❌ Error initializing Gemini Client: {e}")
 
 HISTORY_BASE_DIR = 'reports_history'
-# This dictionary will store the history of messages for each session
 chat_histories: Dict[str, List[types.Content]] = {}
 
 # --- The AI's "Toolbox" (Our Python Functions) ---
@@ -36,6 +36,19 @@ def get_list_of_all_reports() -> List[str]:
         [d for d in os.listdir(HISTORY_BASE_DIR) if os.path.isdir(os.path.join(HISTORY_BASE_DIR, d))],
         reverse=True
     )
+
+def _load_config(base_dir: str) -> Dict:
+    """Loads config.yaml from the project root."""
+    cfg_path = os.path.join(base_dir, 'config.yaml')
+    try:
+        with open(cfg_path, 'r', encoding='utf-8') as f:
+            return yaml.safe_load(f) or {}
+    except FileNotFoundError:
+        print("⚠️ WARNING: config.yaml not found. Using default values.")
+        return {}
+    
+config = _load_config('.')
+
 
 def read_data_from_report(timestamp: str) -> Dict[str, Any]:
     """
@@ -64,11 +77,43 @@ def get_reports_in_date_range(days_ago: int) -> List[str]:
         if datetime.strptime(r.split('_')[0], '%Y-%m-%d') >= start_date
     ]
 
-# --- Flask Routes ---
+def analyze_failure_trends(days_ago: int) -> Dict[str, Any]:
+    """
+    Analyzes all reports from the last N days to identify trends.
+    """
+    print(f"TOOLBOX: Called analyze_failure_trends for last {days_ago} days")
+    report_timestamps = get_reports_in_date_range(days_ago)
+    if not report_timestamps:
+        return {"error": f"No reports found in the last {days_ago} days."}
 
+    trends = {}
+    for timestamp in reversed(report_timestamps):
+        data = read_data_from_report(timestamp)
+        if data and "groups" in data:
+            for group in data["groups"]:
+                fingerprint = group.get("fingerprint_what")
+                if not fingerprint: continue
+                
+                if fingerprint not in trends:
+                    trends[fingerprint] = {
+                        "total_occurrences": 0,
+                        "first_seen": timestamp.split('_')[0],
+                        "last_seen": timestamp.split('_')[0],
+                        "seen_in_reports": 0,
+                        "title": group.get("title")
+                    }
+                
+                trends[fingerprint]["total_occurrences"] += group.get("count", 0)
+                trends[fingerprint]["last_seen"] = timestamp.split('_')[0]
+                trends[fingerprint]["seen_in_reports"] += 1
+
+    return trends
+
+# --- Flask Routes ---
 @app.route('/')
 def index():
-    return render_template('report.html')
+    proactive_summary = config.get('proactive_summary_on_load', True)
+    return render_template('report.html', proactive_summary_enabled=proactive_summary)
 
 @app.route('/reports')
 def list_reports():
@@ -84,8 +129,7 @@ def get_report_data(timestamp):
     else:
         return "Report not found", 404
 
-# --- Final, Robust, Stateful Chat Logic with Priming ---
-
+# --- Stateful Chat Logic with Priming and Trend Analysis Tool ---
 @app.route('/chat', methods=['POST'])
 def chat():
     if not client:
@@ -97,35 +141,31 @@ def chat():
     if not all([user_question, session_id]):
         return jsonify({"error": "Missing user question or session_id"}), 400
 
-    # Retrieve the history for this session, or create and "prime" a new one
     if session_id not in chat_histories:
         print(f"Creating and priming new chat session for ID: {session_id}")
         system_instruction = """
-            You are an expert QA analyst agent. Your task is to answer user questions about test failure reports by using the provided tools.
+You are an expert QA analyst agent. Your task is to answer user questions about test failure reports by using the provided tools.
 
-            **Your thinking process MUST be:**
-            1.  Analyze the user's question to understand what information is needed.
-            2.  If you don't know what reports are available, your first step is ALWAYS to call `get_list_of_all_reports()` to see what files exist.
-            3.  Once you have the list of reports, use the `read_data_from_report(timestamp)` tool to get the content of the specific report(s) you need.
-            4.  After gathering all necessary data, synthesize it into a final, helpful answer for the user.
+**Your thinking process MUST be:**
+1.  Analyze the user's question to understand what information is needed.
+2.  If you don't know what reports are available, your first step is ALWAYS to call `get_list_of_all_reports()` to see what files exist.
+3.  Once you have the list of reports, use `read_data_from_report(timestamp)` or `analyze_failure_trends(days_ago)` to get the content you need.
+4.  After gathering all necessary data, synthesize it into a final, helpful answer for the user.
 
-            **Example Conversation:**
-            * User asks: "What's the difference between the two most recent reports?"
-            * Your internal thought process: The user wants to compare the two most recent reports. First, I need to know what reports are available. I must call the `get_list_of_all_reports` tool.
-            * (You then proceed to call the `get_list_of_all_reports` tool).
-            """
-        # We "prime" the chat with the system instructions so the AI knows its role from the start.
+**Example Conversation:**
+* User asks: "What's the difference between the two most recent reports?"
+* Your internal thought process: The user wants to compare. First, I need to know what reports are available. I must call `get_list_of_all_reports`.
+* (You then proceed to call the tool).
+"""
         chat_histories[session_id] = [
             types.Content(role='user', parts=[types.Part(text=system_instruction)]),
-            types.Content(role='model', parts=[types.Part(text="Understood. I am ready to analyze test failure reports. How can I help?")])
+            types.Content(role='model', parts=[types.Part(text="Understood. I am a QA analyst agent, ready to help. How can I assist with the test reports?")])
         ]
     
     history = chat_histories[session_id]
-    
-    # Add the new user question to the history
     history.append(types.Content(role='user', parts=[types.Part(text=user_question)]))
 
-    tools = [get_list_of_all_reports, read_data_from_report, get_reports_in_date_range]
+    tools = [get_list_of_all_reports, read_data_from_report, get_reports_in_date_range, analyze_failure_trends]
     
     try:
         response = client.models.generate_content(
@@ -134,17 +174,14 @@ def chat():
             config=types.GenerateContentConfig(tools=tools),
         )
         
-        # Add the AI's response to the history for the next turn
         history.append(response.candidates[0].content)
-
         return jsonify({"response": response.text})
 
     except Exception as e:
         print(f"An error occurred during content generation: {e}")
-        # Try to remove the last user message from history if the call failed
         if history and history[-1].role == 'user':
             history.pop()
-        return jsonify({"error": f"An unexpected error occurred on the server: {str(e)}"}), 500
+        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000, debug=True)

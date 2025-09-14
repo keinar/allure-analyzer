@@ -4,6 +4,7 @@ const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).sub
 // Global state
 let currentReportDataAsText = '';
 let reportTimestamps = [];
+const charts = {}; // Object to hold our chart instances
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- UI elements ---
@@ -11,8 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-box');
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const reportSelector = document.getElementById('report-selector');
-
-    // --- AI Chat elements ---
     const chatMessages = document.getElementById('chat-messages');
     const chatInputForm = document.getElementById('chat-input-form');
     const chatInput = document.getElementById('chat-input');
@@ -21,13 +20,63 @@ document.addEventListener('DOMContentLoaded', () => {
     const escapeHtml = (unsafe) => 
         unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 
+    // --- NEW: Dashboard Rendering ---
+    function renderDashboard(data) {
+        if (charts.failuresByEpic) charts.failuresByEpic.destroy();
+        if (charts.statusBreakdown) charts.statusBreakdown.destroy();
+
+        const epicCounts = {};
+        let totalFailed = 0;
+        let totalBroken = 0;
+
+        (data.groups || []).forEach(group => {
+            totalFailed += group.status_counts?.failed || 0;
+            totalBroken += group.status_counts?.broken || 0;
+            const epics = group.epics && group.epics.length > 0 ? group.epics : ['Uncategorized'];
+            epics.forEach(epic => {
+                epicCounts[epic] = (epicCounts[epic] || 0) + (group.count || 0);
+            });
+        });
+
+        const epicCtx = document.getElementById('failuresByEpicChart').getContext('2d');
+        charts.failuresByEpic = new Chart(epicCtx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(epicCounts),
+                datasets: [{
+                    label: 'Total Failures',
+                    data: Object.values(epicCounts),
+                    backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        const statusCtx = document.getElementById('statusBreakdownChart').getContext('2d');
+        charts.statusBreakdown = new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Failed', 'Broken'],
+                datasets: [{
+                    data: [totalFailed, totalBroken],
+                    backgroundColor: ['rgba(220, 53, 69, 0.7)', 'rgba(255, 193, 7, 0.7)'],
+                    borderColor: ['rgba(220, 53, 69, 1)', 'rgba(255, 193, 7, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+
     function createGroupCardHTML(group) {
         const epicsHtml = (group.epics || []).map(e => `<span class="label-tag">${escapeHtml(e)}</span>`).join('') || 'N/A';
         const featuresHtml = (group.features || []).map(f => `<span class="label-tag">${escapeHtml(f)}</span>`).join('') || 'N/A';
         const statusCounts = group.status_counts || {};
         const failedCount = statusCounts.failed || 0;
         const brokenCount = statusCounts.broken || 0;
-        const totalInGroup = group.failure_count || 0;
+        const totalInGroup = group.count || 0;
         const failedPercent = totalInGroup > 0 ? (failedCount / totalInGroup) * 100 : 0;
         const brokenPercent = totalInGroup > 0 ? (brokenCount / totalInGroup) * 100 : 0;
         let statusTagsHtml = '';
@@ -72,9 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
             totalFailed += g.status_counts?.failed || 0;
             totalBroken += g.status_counts?.broken || 0;
         });
-        document.getElementById('meta-date').textContent = new Date(data.metadata?.generation_date || Date.now()).toLocaleString();
-        document.getElementById('meta-total').innerHTML = `${data.metadata?.total_failures || 0} (<span style="color:var(--status-failed-bg);">${totalFailed} F</span>, <span style="color:var(--status-broken-bg);">${totalBroken} B</span>)`;
-        document.getElementById('meta-groups').textContent = data.metadata?.unique_groups || 0;
+        const metadata = data.metadata || {};
+        document.getElementById('meta-date').textContent = new Date(metadata.generation_date || Date.now()).toLocaleString();
+        document.getElementById('meta-total').innerHTML = `${metadata.total_failures || 0} (<span style="color:var(--status-failed-bg);">${totalFailed} F</span>, <span style="color:var(--status-broken-bg);">${totalBroken} B</span>)`;
+        document.getElementById('meta-groups').textContent = metadata.unique_groups || 0;
         groupsContainer.innerHTML = (data.groups || []).map(createGroupCardHTML).join('');
     }
 
@@ -85,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             currentReportDataAsText = await response.text();
             const data = JSON.parse(currentReportDataAsText);
+            renderDashboard(data);
             renderReport(data);
         } catch (error) {
             groupsContainer.innerHTML = `<div id="loader" style="color: var(--status-failed-bg);">Failed to load report data: ${error.message}.</div>`;
@@ -99,7 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
             reportTimestamps = await response.json();
             if (reportTimestamps && reportTimestamps.length > 0) {
                 reportSelector.innerHTML = reportTimestamps.map(ts => `<option value="${ts}">${ts.replace('_', ' ')}</option>`).join('');
-                loadReport(reportTimestamps[0]);
+                await loadReport(reportTimestamps[0]);
+                // Read the config value from the body's data attribute
+                const proactiveSummaryEnabled = document.body.dataset.proactiveSummary === 'True';
+                
+                // Only get the summary if the config is enabled
+                if (proactiveSummaryEnabled) {
+                    getProactiveSummary();
+                } else {
+                    // If disabled, just show a standard welcome message.
+                    const welcomeMessage = "Hello! I've read the failure report. Ask me anything about the data.";
+                    document.querySelector('#chat-messages .ai-message').innerHTML = welcomeMessage;
+                }
             } else {
                  groupsContainer.innerHTML = '<div id="loader">No historical reports found. Run the analysis first.</div>';
             }
@@ -117,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.innerHTML = '<span></span><span></span><span></span>';
         } else {
             if (sender === 'ai') {
-                messageDiv.innerHTML = marked.parse(content);
+                messageDiv.innerHTML = marked.parse(content || "");
             } else {
                 messageDiv.textContent = content;
             }
@@ -126,7 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    async function getAIResponse(userInput) {
+    async function getAIResponse(userInput, isProactive = false) {
+        if (!isProactive) {
+            addMessageToUI(userInput, 'user');
+            chatInput.value = '';
+        }
         addMessageToUI('', 'ai', true);
         try {
             const response = await fetch('/chat', {
@@ -150,14 +216,17 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("AI Chat Error:", error);
         }
     }
+
+    function getProactiveSummary() {
+        const proactivePrompt = "Provide a brief 'executive summary' comparing the latest report to the one before it. Highlight the main trend, any new critical failures, and any significant resolved issues.";
+        getAIResponse(proactivePrompt, true);
+    }
     
     // --- EVENT LISTENERS ---
     chatInputForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const userInput = chatInput.value.trim();
         if (userInput) {
-            addMessageToUI(userInput, 'user');
-            chatInput.value = '';
             getAIResponse(userInput);
         }
     });
