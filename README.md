@@ -2,8 +2,7 @@
 
 > An intelligent CLI tool that transforms raw Allure test results into an interactive dashboard featuring a powerful AI analyst. Get visual insights, proactive summaries, and ask complex questions about your test failures in natural language.
 
-![Project Screenshot](image.png)
-*(Recommended: Replace with a screenshot of the final dashboard showing the charts and AI chat sidebar)*
+![screenshot](image-1.png)
 
 ---
 ## Table of Contents
