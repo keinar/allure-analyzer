@@ -10,4 +10,4 @@ top_n_groups_to_report: -1  # -1 means all groups
 
 # Include broken tests (status='broken') in the analysis.
 # Set to false to hide broken tests entirely and only show 'failed' ones.
-include_broken: false
+include_broken: true
